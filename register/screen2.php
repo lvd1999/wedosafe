@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sex = $_POST['sex'];
     $occupation = $_POST['occupation'];
     $position = $_POST['position'];
-    $nationality = $_POST['nationality'];
+    $nationality = ucwords($_POST['nationality']);
     $english = $_POST['english'];
 
     //for image
@@ -272,7 +272,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <option value="latvian">Latvian</option>
                                 <option value="lithuanian">Lithuanian</option>
                                 <option value="polish">Polish</option>
-
                                 <option value="afghan">Afghan</option>
                                 <option value="albanian">Albanian</option>
                                 <option value="algerian">Algerian</option>
@@ -506,10 +505,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </button>
                             </div>
                             <div class="col-sm-4 col-lg-6">
-                                <button class="login100-form-btn" style="width: 60%; height: 90%;">
-                                    <a href="screen3.php">
+                                <button class="login100-form-btn" style="width: 60%; height: 90%;" type="submit">
+                                    
                                         Next
-                                    </a>
+                                    
                                 </button>
                             </div>
                         </div>
@@ -554,49 +553,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 autoclose: true,
             })
         })
-    </script>
-
-    <script src="../dist/js/jquery.flagstrap.js"></script>
-
-    <script>
-        $('#basic').flagStrap();
-
-        $('#origin').flagStrap({
-            placeholder: {
-                buttonSize: "btn-lg",
-                buttonType: "btn-primary",
-                labelMargin: "30px",
-                scrollable: true,
-                scrollableHeight: "350px",
-                value: "",
-                text: "Choose your country :"
-            }
-        });
-
-        $('#options').flagStrap({
-            countries: {
-                "AU": "Australia",
-                "GB": "United Kingdom",
-                "US": "United States"
-            },
-            buttonSize: "btn-sm",
-            buttonType: "btn-info",
-            labelMargin: "10px",
-            scrollable: false,
-            scrollableHeight: "350px"
-        });
-
-        $('#advanced').flagStrap({
-            buttonSize: "btn-lg",
-            buttonType: "btn-primary",
-            labelMargin: "20px",
-            scrollable: false,
-            scrollableHeight: "350px",
-            onSelect: function (value, element) {
-                alert(value);
-                console.log(element);
-            }
-        });
     </script>
 
 </body>
