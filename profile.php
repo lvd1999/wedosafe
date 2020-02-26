@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'functions.php';
-include_once 'config.php';
+require_once 'functions.php';
+require_once 'config.php';
 
 $email = $_SESSION['email'];
 $userDetail = get_details($email);
@@ -26,29 +26,14 @@ if ($userDetail['profile_image']) {
 
 <body>
     <a href="welcome.php" class="btn">Back to Home</a>
+    <a href="edit-profile.php" class="btn">Edit Profile</a>
 
-    <div class="profile-img">
         <div class="hovereffect text-center">
 
-            <img src="<?php echo "profile-images/" . $userDetail['profile_image']; ?> " width='300' height='300'
-                onClick='triggerClick()' id='profileDisplay' class='rounded mx-auto d-block'>
-            <div class="overlay d-none">
-                <a class="info" onClick="triggerClick()">Update profile picture</a>
-            </div>
+            <img src="<?php echo "profile-images/" . $userDetail['profile_image']; ?> " width='300' height='300'>
+            
         </div>
-        <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
-            <?php if (!empty($msg)): ?>
-            <div class="alert <?php echo $msg_class ?>" role="alert">
-                <?php echo $$msg; ?>
-            </div>
-            <?php endif;?>
-            <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control"
-                style="display: none">
-            <!-- <input type="file" accept="image/*" capture="camera" />         for mobile -->
-            <button type="submit" name="save_profile" class="btn btn-primary btn-block" id="imageSubmit">Save
-                Image</button>
-        </form>
-    </div>
+        
     <p>UserName: <?php echo $userDetail['email']; ?></p>
     <p>First Name: <?php echo $userDetail['firstname']; ?></p>
     <p>SurName: <?php echo $userDetail['surname']; ?></p>
@@ -60,16 +45,31 @@ if ($userDetail['profile_image']) {
     <p>Nationality: <?php echo $userDetail['nationality']; ?></p>
     <p>Phone: <?php echo $userDetail['phone']; ?></p>
 
-    <h1>Safe Pass</h1>
-
+    <!-- print certificates -->
+    <h1>Certificates</h1>
+    <h3>Safe Pass</h3>
     <?php
 if (empty($safepass)) {
-    echo '<h4>No Safe Pass</h4>';
+    echo "<h5>No Safe Pass</h5> <br>
+    <a href='add-safepass.php'> Add Save Pass </a>";
 } else {
     echo '<img src="certificates/' . $safepass['cert_image_front'] . '" width="300" height = "300">';
     echo '<img src="certificates/' . $safepass['cert_image_back'] . '" width="300" height = "300">';
 }
 ?>
+    <h3>Other Certificates</h3>
+
+    <?php
+
+$certs = get_cert($email);
+
+if (count($certs) > 0) {
+    foreach($certs as $cert) {
+        echo $cert['type'] . '<br>';
+    }
+}      
+?>
+
 </body>
 
 </html>

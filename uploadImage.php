@@ -3,7 +3,7 @@ session_start();
 
 $msg = "";
 $msg_class = "";
-$conn = mysqli_connect("localhost", "root", "", "safilety");
+$conn = mysqli_connect("localhost", "root", "", "wedosafe");
 if (isset($_POST['save_profile'])) {
     // for the database
     $profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
@@ -38,7 +38,7 @@ if (isset($_POST['save_profile'])) {
             $msg = "alert-danger";
         }
 
-        header('Location: profile.php');
+        header('Location: edit-profile.php');
     }
 }
 ?>
