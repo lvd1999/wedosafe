@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 
 
     <title>safepass upload - front</title>
@@ -87,14 +87,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-    <div class="form-group <?php echo (!empty($cert_err)) ? 'has-error' : ''; ?>">
-        <select class="custom-select form-control" name="cert-type">
-            <option selected value="default">Select...</option>
-            <option value="CSSR">CSSR</option>
-            <option value="First Aid">First Aid</option>
-            <option value="Driving Manual">Driving Manual</option>
-        </select>
-    </div>
+        <div class="form-group <?php echo (!empty($cert_err)) ? 'has-error' : ''; ?>">
+            <select class="custom-select form-control" name="cert-type">
+                <option selected value="default">Select...</option>
+                <option value="CSSR">CSSR</option>
+                <option value="First Aid">First Aid</option>
+                <option value="Driving Manual">Driving Manual</option>
+            </select>
+        </div>
 
         <input type="file" name="safepass" onChange="displayImage(this)" id="profileImage" class="form-control d-none">
         <img src="../images/upload.png" width='500' height='300' onClick='triggerClick()' id='profileDisplay'>
