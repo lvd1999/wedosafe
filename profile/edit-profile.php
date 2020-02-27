@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'functions.php';
-require_once 'config.php';
+require_once '../functions.php';
+require_once '../config.php';
 
 //variables
 $email = $_SESSION['email'];
@@ -366,4 +366,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </html>
 
-<script src="script.js"></script>
+<script src="../script.js"></script>

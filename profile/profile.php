@@ -1,11 +1,13 @@
 <?php
 session_start();
-require_once 'functions.php';
-require_once 'config.php';
+require_once '../functions.php';
+require_once '../config.php';
 
+//get details
 $email = $_SESSION['email'];
 $userDetail = get_details($email);
 $safepass = get_safepass($email);
+$certs = get_cert($email);
 
 //profile image
 if ($userDetail['profile_image']) {
@@ -30,7 +32,7 @@ if ($userDetail['profile_image']) {
 
         <div class="hovereffect text-center">
 
-            <img src="<?php echo "profile-images/" . $userDetail['profile_image']; ?> " width='300' height='300'>
+            <img src="<?php echo "../profile-images/" . $userDetail['profile_image']; ?> " width='300' height='300'>
             
         </div>
         
@@ -47,27 +49,30 @@ if ($userDetail['profile_image']) {
 
     <!-- print certificates -->
     <h1>Certificates</h1>
+    <a href="edit-certificates.php">Edit</a>
     <h3>Safe Pass</h3>
     <?php
 if (empty($safepass)) {
-    echo "<h5>No Safe Pass</h5> <br>
-    <a href='add-safepass.php'> Add Save Pass </a>";
+    echo "<h5>No Safe Pass</h5> <br>";
 } else {
-    echo '<img src="certificates/' . $safepass['cert_image_front'] . '" width="300" height = "300">';
-    echo '<img src="certificates/' . $safepass['cert_image_back'] . '" width="300" height = "300">';
+    echo '<img src="../certificates/' . $safepass['cert_image_front'] . '" width="300" height = "300">';
+    echo '<img src="../certificates/' . $safepass['cert_image_back'] . '" width="300" height = "300">';
 }
 ?>
     <h3>Other Certificates</h3>
-
     <?php
 
-$certs = get_cert($email);
+
 
 if (count($certs) > 0) {
     foreach($certs as $cert) {
+        
+        echo '<img src="../certificates/' . $cert['cert_image_front'] . '" width="300" height = "300">';
         echo $cert['type'] . '<br>';
     }
-}      
+} else {
+    echo 'No other certificates';
+}
 ?>
 
 </body>

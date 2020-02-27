@@ -26,9 +26,9 @@ $email = $_SESSION['email'];
         <h1>Home Site</h1>
     </div>
     <p>
-        <a href="profile.php" class="btn btn-warning">Profile</a>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+        <a href="profile/profile.php" class="btn btn-warning">Profile</a>
+        <a href="../reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="../logout.php" class="btn btn-danger">Sign Out of Your Account</a>
     </p>
 </body>
 </html>

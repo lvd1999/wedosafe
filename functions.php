@@ -22,7 +22,7 @@ function get_safepass($email)
 function delete_cert($email, $type)
 {
     global $pdo;
-    $stm = $pdo->prepare("DELETE FROM certificates WHERE email = ? AND type = ? ");
+    $stm = $pdo->prepare("DELETE FROM certificates WHERE email = ? AND cert_image_front = ? ");
     $stm->bindValue(1, $email);
     $stm->bindValue(2, $type);
     $stm->execute();
