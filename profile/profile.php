@@ -27,7 +27,7 @@ if ($userDetail['profile_image']) {
 </head>
 
 <body>
-    <a href="welcome.php" class="btn">Back to Home</a>
+    <a href="../welcome.php" class="btn">Back to Home</a>
     <a href="edit-profile.php" class="btn">Edit Profile</a>
 
         <div class="hovereffect text-center">

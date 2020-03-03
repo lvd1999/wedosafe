@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
                 // Redirect to profile page
-                header("location: profile.php");
+                header("location: edit-certificates.php");
             } else {
                 echo "Something went wrong. Please try again later.";
             }

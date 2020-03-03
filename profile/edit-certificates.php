@@ -25,7 +25,7 @@ if (empty($safepass)) {
     <a href='add-safepass-front.php'><button>Add</button></a> <br>
     ";
 } else {
-    echo '<a href="delete-cert.php"><button>Delete</button></a>';
+    echo '<a href="delete-cert.php?name=' . $safepass['cert_image_front'] . '">Delete</a>';
     echo '<img src="../certificates/' . $safepass['cert_image_front'] . '" width="300" height = "300">';
     echo '<img src="../certificates/' . $safepass['cert_image_back'] . '" width="300" height = "300">';
 }

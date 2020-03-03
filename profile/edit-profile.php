@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 //for image upload
         $profileImageName = time() . '-' . $_FILES['profileImage']['name'];
-        $target_dir = "profile-images/";
+        $target_dir = "../profile-images/";
         $target_file = $target_dir . basename($profileImageName);
 
 // validate image size. Size is calculated in Bytes
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <img src="<?php echo "profile-images/" . $userDetail['profile_image']; ?> " width='300' height='300'
+    <img src="<?php echo "../profile-images/" . $userDetail['profile_image']; ?> " width='300' height='300'
         onClick='triggerClick()' id='profileDisplay' class='rounded mx-auto d-block'>
     <div class="overlay d-none">
         <a class="info" onClick="triggerClick()">Update profile picture</a>

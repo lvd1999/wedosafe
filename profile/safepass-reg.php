@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             // Redirect to profile
             $_SESSION['safepass'] = $reg_num;
-            header("location: profile.php");
+            header("location: edit-certificates.php");
         } else {
             echo "Something went wrong. Please try again later.";
         }
