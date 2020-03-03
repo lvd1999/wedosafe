@@ -37,3 +37,14 @@ function get_cert($email)
     $row = $stm->fetchAll(PDO::FETCH_ASSOC);
     return $row;
 }
+
+function get_pendingrequest($username)
+{
+    global $pdo;
+    $stm = $pdo->prepare("SELECT users.firstname, users.surname, bs.address, r.message FROM (((users INNER JOIN requests r ON users.email = r.email) INNER JOIN building_sites bs ON r.code = bs.code) INNER JOIN admins a ON bs.company_name = a.company_name WHERE a.username = ? AND r.status='pending')");
+    $stm->bindValue(1, $username);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
