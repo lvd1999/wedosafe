@@ -3,8 +3,8 @@
 require_once "../config.php";
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$username = $password = $confirm_password = $company_name = "";
+$username_err = $password_err = $confirm_password_err = $company_name_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -39,6 +39,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     
+    //validate company name
+    // Validate username
+    if(empty(trim($_POST["company_name"]))){
+        $username_err = "Please enter a company name.";
+    } else{
+        // Prepare a select statement
+        $sql = "SELECT id FROM admins WHERE company_name = :company_name";
+        
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":company_name", $param_company_name, PDO::PARAM_STR);
+            
+            // Set parameters
+            $param_company_name = trim($_POST["company_name"]);
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                if($stmt->rowCount() == 1){
+                    $company_name_err = "This company name is already taken.";
+                } else{
+                    $company_name = trim($_POST["company_name"]);
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            unset($stmt);
+        }
+    }
+
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";     
@@ -59,20 +90,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($company_name_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO admins (username, password) VALUES (:username, :password)";
+        $sql = "INSERT INTO admins (username, password, company_name) VALUES (:username, :password, :company_name)";
          
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+            $stmt->bindParam(":company_name", $param_company_name, PDO::PARAM_STR);
             
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            
+            $param_company_name = $company_name;
+
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
@@ -122,6 +155,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
+            <div class="form-group <?php echo (!empty($company_name_err)) ? 'has-error' : ''; ?>">
+                <label>Company Name</label>
+                <input type="text" name="company_name" class="form-control" value="<?php echo $company_name; ?>">
+                <span class="help-block"><?php echo $company_name_err; ?></span>
+            </div>   
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-default" value="Reset">
