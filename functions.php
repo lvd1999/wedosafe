@@ -105,9 +105,28 @@ function displayRegisteredSites($email) {
 
 function siteMembers($id) {
     global $pdo;
-    $stm = $pdo->prepare("SELECT * FROM site_registration WHERE building_site = ?");
+    $stm = $pdo->prepare("SELECT u.email, u.firstname, u.surname, u.occupation FROM (site_registration sr INNER JOIN users u ON sr.email = u.email) WHERE sr.building_site = ?");
     $stm->bindValue(1, $id);
     $stm->execute();
     $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function registeredSites($email) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT r.code, r.status, bs.address FROM (requests r INNER JOIN building_sites bs ON r.code = bs.code) 
+    WHERE email = ? ORDER BY FIELD(status, 'allowed')");
+    $stm->bindValue(1, $email);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function getSiteByCode($code) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT * FROM building_sites WHERE code = ?");
+    $stm->bindValue(1, $code);
+    $stm->execute();
+    $row = $stm->fetch(PDO::FETCH_ASSOC);
     return $row;
 }
