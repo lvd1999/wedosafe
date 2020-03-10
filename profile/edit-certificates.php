@@ -26,11 +26,7 @@ $certs = get_cert($email);
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="../vendor/acc-wizard-master/release/acc-wizard.min.js"></script>
-    <!-- x-editable (bootstrap version) -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
-        rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js">
-    </script>
+    
     <link rel="stylesheet" href="../css/profile.css">
 
     <!--============================================================================= ==================-->
@@ -38,22 +34,23 @@ $certs = get_cert($email);
 </head>
 
 <body>
-    <div class="main">
-
-        <div class="container">
-            <div class="acc-wizard">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default active">
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form method="POST" id="myeditable">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <h3>Certication</h3>
-                                            <label for="cert" class="form-label"
-                                                style="background-color: lemonchiffon; width: fit-content;">Safe
-                                                Pass</label>
-                                            <?php
+    <div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
+        <div class="main">
+            <div class="wrap-login100">
+                <div class="container" id="display">
+                    <div class="acc-wizard">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default active">
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <form method="POST" id="myeditable">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <h3>Certication</h3>
+                                                    <label for="cert" class="form-label"
+                                                        style="width: fit-content;">Safe
+                                                        Pass</label>
+                                                    <?php
 if (empty($safepass)) {
     echo '<a href="add-safepass-front.php" class="btn btn-warning a-btn-slide-text">
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -73,35 +70,35 @@ if (empty($safepass)) {
 ?>
 
 
-                                            <div id="expire" style="display: none;">
-                                                <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control" id="added_date"
-                                                            name="added_date" readonly style="display: none;" />
+                                                    <div id="expire" style="display: none;">
+                                                        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <input type="text" class="form-control" id="added_date"
+                                                                    name="added_date" readonly style="display: none;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label>Expired Date</label>
+                                                                <input type="date" class="form-control" id="end_date"
+                                                                    name="end_date" onchange="cal()" />
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label>Warranty</label>
+                                                                <input type="text" class="form-control" id="calc"
+                                                                    name="calc" value="" readonly />
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>Expired Date</label>
-                                                        <input type="date" class="form-control" id="end_date"
-                                                            name="end_date" onchange="cal()" />
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Warranty</label>
-                                                        <input type="text" class="form-control" id="calc" name="calc"
-                                                            value="" readonly />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
+                                            </fieldset>
 
-                                    <fieldset>
-                                        
-                                            <h3>Other</h3>
+                                            <fieldset>
 
-                                            <?php
+                                                <h3>Other</h3>
+
+                                                <?php
                                             if (count($certs) > 0) {
                                                 foreach ($certs as $cert) {
                                             echo '<div class="form-group">
@@ -120,17 +117,21 @@ if (empty($safepass)) {
     echo "No other certificates";
 }
 ?>
-                                            <div id="add2" style="display: block;">
-                                                <a href="add-certificate.php" class="btn btn-warning a-btn-slide-text">
-                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                                    <span><strong>Add</strong></span>
-                                                </a>
-                                            </div>
-                                        
-                                    </fieldset>
-                                    <a href="profile.php"><button type="button" class="btn btn-success"
-                                            style="float: right;">Done</button></a>
-                                </form>
+                                                <div id="add2" style="display: block;">
+                                                    <a href="add-certificate.php"
+                                                        class="btn btn-warning a-btn-slide-text">
+                                                        <span class="glyphicon glyphicon-plus"
+                                                            aria-hidden="true"></span>
+                                                        <span><strong>Add</strong></span>
+                                                    </a>
+                                                </div>
+
+                                            </fieldset>
+                                            <a href="profile.php"><button type="button" class="btn btn-success"
+                                                    style="float: right;">Done</button></a>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,7 +139,6 @@ if (empty($safepass)) {
             </div>
         </div>
     </div>
-
 
     <div id="dropDownSelect1"></div>
 

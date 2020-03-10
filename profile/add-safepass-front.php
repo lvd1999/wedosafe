@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="col-sm-4 col-lg-6">
                                 <button class="login100-form-btn" type="submit">
-                                        Back side
+                                        Next
                                 </button>
                             </div>
                         </div>
