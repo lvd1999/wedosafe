@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 <a href='admin-dashboard.php'>Back</a>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        Code: <input type='text' name='code'>
+        Code: <input type='text' name='code' oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();this.setSelectionRange(p, p);">
         Address: <input type='text' name='address'>
         <input type="submit">
     </form>

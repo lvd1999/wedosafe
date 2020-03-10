@@ -20,7 +20,7 @@ if (!isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"] !== true) {
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
     </style>
@@ -37,16 +37,30 @@ if (!isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"] !== true) {
 
     <h2>My building sites</h2>
     <a href='add-sites.php' class="btn btn-info">Add</a> <br>
+    
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Code </th>
+<th scope="col">Address</th>
+</tr>
+</thead>
+<tbody>
     <?php
 if (count($sites) > 0) {
     foreach ($sites as $site) {
-        echo '<a href="site-member.php?site_id=' . $site['id'] . '">' . $site['code'] . '</a>';
-        echo $site['address'] . '<br>';
+        echo '<tr><th scope="row"><a href="site-member.php?site_id=' . $site['id'] . 
+        '&site_code='. $site['code'] . 
+        '">' . $site['code'] . '</a></th>';
+        echo '<td>' . $site['address'] . '</td></tr>';
     } 
 } else {
     echo "No building site. Please add one";
 }
 ?>
+</tbody>
+</table>
+
 
     <h2>Pending Site Requests</h2>
     <?php
