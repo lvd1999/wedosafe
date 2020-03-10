@@ -136,7 +136,7 @@ body {
   font-family: 'Roboto Slab';
   margin: 0px;
   margin-top: -5%;
-  background-color: lemonchiffon;
+  background-image: url(../images/bg-01.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   -moz-background-size: cover;
@@ -147,11 +147,45 @@ body {
 }
 
 .main {
+  width: 1070px;
+  margin: 0 auto;
   padding: 130px 0;
 }
 
+.container-login100 {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.container-login100::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
 .container {
-  width: 1070px;
   position: relative;
   margin: 0 auto;
   background: #fff;
@@ -196,7 +230,6 @@ h3 a:hover {
 input,
 textarea {
   box-sizing: border-box;
-  background: #f8f8f8;
   border: none;
   font-size: 14px;
   padding: 13px 20px;
@@ -311,7 +344,6 @@ fieldset {
   font-family: 'Roboto Slab';
   color: #999;
   box-sizing: border-box;
-  background-color: #f8f8f8;
 }
 
 .form-date-item {
@@ -325,7 +357,6 @@ fieldset {
   content: '';
   width: 1px;
   height: 30px;
-  background: #ebebeb;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
@@ -465,7 +496,6 @@ ul#national li.selected:not(.init) {
 li.init {
   cursor: pointer;
   position: relative;
-  background: #f8f8f8;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -507,21 +537,20 @@ li.init:after {
   margin-bottom: 30px;
 }
 
-.au-btn:after {
-  position: absolute;
-  right: 42px;
-  top: 50%;
-  transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  font-size: 16px;
-  color: #fff;
-  font-family: 'Material-Design-Iconic-Font';
-  content: '\f2fe';
-  font-weight: 400;
-}
+/* .au-btn:after {
+    position: absolute;
+    right: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    font-size: 16px;
+    color: #fff;
+    font-family: 'Material-Design-Iconic-Font';
+    content: '\f2fe';
+    font-weight: 400; } */
 
 .au-btn-back {
   display: none;
@@ -713,14 +742,11 @@ li.init:after {
   width: 200px !important;
 }
 
-/* #display span {
-  background-color: lemonchiffon;
-} */
 
-/* #display label {
-  background-color: lemonchiffon;
+#display label {
+
   width: fit-content;
-} */
+}
 
 .editable {
   width: fit-content !important;
@@ -740,4 +766,79 @@ a.btn {
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;
+}
+
+.wrap-login100 {
+  height: fit-content;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 4% 4% 4% 4%;
+
+  background: -webkit-linear-gradient(#230444, #90303D, #ED8240);
+  background: -o-linear-gradient(#230444, #90303D, #ED8240);
+  background: -moz-linear-gradient(#230444, #90303D, #d2ebe9);
+  background: linear-gradient(#230444, #90303D, #ED8240);
+}
+
+
+.slidecontainer {
+  width: 100%;
+  /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;
+  /* Override default CSS styles */
+  appearance: none;
+  width: 100%;
+  /* Full-width */
+  height: 25px;
+  /* Specified height */
+  background: #d3d3d3;
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  opacity: 0.7;
+  /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s;
+  /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  border-radius: 5px;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1;
+  /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  /* Slider handle height */
+  background: #4CAF50;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  /* Slider handle height */
+  background: #4CAF50;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.btn-info {
+  color: #ebebeb;
 }
