@@ -121,10 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-			<div class="wrap-login100">
+			<div class="wrap-login101">
 				<form class="login100-form validate-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
+						<img src="images/logo.png" alt="" id="profileDisplay">
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter Email address">
-						<input class="input100" type="email" name="email" placeholder="Email">
+						<input class="input100" type="email" name="email" placeholder="Email" autocomplete="on">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
@@ -141,12 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
-					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-						<label class="label-checkbox100" for="ckb1">
-							Remember me for 24 hour
-						</label>
-					</div>
+					
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" value="login" type="submit">
