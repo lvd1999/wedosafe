@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row">
                             <div class="col-sm-4 col-lg-6">
                                 <button class="login100-form-btn">
-                                    <a href="profile.php">
+                                    <a href="edit-certificates.php">
                                         Skip
                                     </a>
                                 </button>

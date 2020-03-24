@@ -4,36 +4,6 @@ require_once "../config.php";
 $email = $_SESSION['email'];
 $msg = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    //for image
-    $safepassImageName = time() . '-' . $_FILES['safepass']['name'];
-    $target_dir = "../certificates/";
-    $target_file = $target_dir . basename($safepassImageName);
-
-    if ($_FILES["safepass"]["error"] == 4) {
-        $msg = "Please upload image";
-    }
-
-    // validate image size. Size is calculated in Bytes
-    if ($_FILES['safepass']['size'] > 200000) {
-        $msg = "Image size should not be greated than 200Kb";
-    }
-    // check if file exists
-    if (file_exists($target_file)) {
-        $msg = "File already exists";
-    }
-    // Upload image only if no errors
-    if (empty($error)) {
-        move_uploaded_file($_FILES["safepass"]["tmp_name"], $target_file);
-    }
-
-    // Redirect 
-    if (empty($msg)) {
-        $_SESSION['safepass-back'] = $safepassImageName;
-        header("location: safepass-reg.php");
-    }
-}
 ?>
 
 
@@ -83,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="file-upload">
 
                         <div class="image-upload-wrap">
-                            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" name="safepass"/>
                             <div class="drag-text">
                             <h3>Drag and drop a file or select add Image</h3>
                             </div>
@@ -101,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <hr>
 
                     <div class="wrap-input100 validate-input" data-validate = "Registration Number">
-						<input class="input100" type="number" name="number" placeholder="Registration Number">
+						<input class="input100" type="text" name="number" placeholder="Registration Number (Numbers only)" pattern="[0-9]{15}" title="15 numbers of safepass only." required>
 						<span class="focus-input100" data-placeholder="&#xf188;"></span>
                     </div>
                     
@@ -111,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row">
                             <div class="col-sm-4 col-lg-6">
                                 <button class="login100-form-btn">
-                                    <a href="profile.php">
-                                        Skip
+                                    <a href="edit-certificates.php">
+                                        Cancel
                                     </a>
                                 </button>
                             </div>

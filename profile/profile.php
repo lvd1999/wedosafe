@@ -106,13 +106,7 @@ if ($userDetail['profile_image']) {
                                                             <label for="gender">Gender: </label>
                                                             <div class="form-flex">
                                                                 <?php
-if ($userDetail['sex'] == 'male') {
-    echo '<label for="male" style="background-color: white;"><img
-                                src="../images/icons/icon-male.png" alt="Male"></label>';
-} elseif ($userDetail['sex'] == 'female') {
-    echo '<label for="female" style="background-color: white;"><img
-                                src="../images/icons/icon-female.png" alt="Female"></label>';
-}
+echo $userDetail['sex'];
 ?>
                                                             </div>
                                                         </div>
@@ -136,6 +130,13 @@ if ($userDetail['sex'] == 'male') {
                                                     <div class="form-group">
                                                         <label for="country" class="form-label">Nationality :</label>
                                                         <?php echo $userDetail['nationality']; ?>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group">
+                                                        <label for="english" class="form-label">English :</label>
+                                                        <?php echo $userDetail['english']; ?>
                                                     </div>
                                                 </div>
 

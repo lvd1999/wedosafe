@@ -46,7 +46,7 @@ $certs = get_cert($email);
                                         <form method="POST" id="myeditable">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <h3>Certication</h3>
+                                                    <h3>Certification</h3>
                                                     <label for="cert" class="form-label"
                                                         style="width: fit-content;">Safe
                                                         Pass</label>
@@ -57,7 +57,7 @@ if (empty($safepass)) {
                                             <span><strong>Add</strong></span>
                                         </a>';
 } else {
-    echo '<img src="../certificates/' . $safepass['cert_image_front'] . '" alt="" id="certImg">
+    echo '<img src="../certificates/' . $safepass['cert_image_front'] . '" alt="" id="certImg"><img src="../certificates/' . $safepass['cert_image_back'] . '" alt="" id="certImg">
 
                                             <div id="delete">
                                                 <a href="delete-cert.php?name=' . $safepass['cert_image_front'] . '" class="btn btn-danger a-btn-slide-text">

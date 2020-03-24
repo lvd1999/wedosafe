@@ -165,23 +165,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="form-radio">
-                                                        <label for="gender">Gender: </label>
-                                                        <div class="form-flex">
-
-                                                            <input type="radio" name="sex"
-                                                                <?=$userDetail['sex'] == "male" ? "checked" : ""?>
-                                                                value="male">
-                                                            <label for="male"><img src="../images/icons/icon-male.png"
-                                                                    alt="Male"></label>
-                                                            <input type="radio" name="sex"
-                                                                <?=$userDetail['sex'] == "female" ? "checked" : ""?>
-                                                                value="female">
-                                                            <label for="female"><img
-                                                                    src="../images/icons/icon-female.png"
-                                                                    alt="Female"></label>
-
-                                                        </div>
+                                                <label for="gender">Gender: </label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio1" name="sex" 
+                                                            class="custom-control-input" <?=$userDetail['sex'] == "male" ? "checked" : ""?> value="male" >
+                                                        <label class="custom-control-label" for="customRadio1">Male</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio2" name="sex" 
+                                                            class="custom-control-input" <?=$userDetail['sex'] == "female" ? "checked" : ""?> value="female" >
+                                                        <label class="custom-control-label" for="customRadio2">Female</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -275,6 +268,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         <option
                                                             <?=$userDetail['position'] == "Other" ? "selected='selected'" : ""?>
                                                             value="Other">Other</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="position" class="form-label">English</label>
+                                                    <select name="english">
+                                                        <option
+                                                            <?=$userDetail['english'] == "Poor" ? "selected='selected'" : ""?>
+                                                            value="Poor">Poor
+                                                        </option>
+                                                        <option
+                                                            <?=$userDetail['english'] == "Good" ? "selected='selected'" : ""?>
+                                                            value="Good">Good
+                                                        </option>
+                                                        <option
+                                                            <?=$userDetail['english'] == "Fluent" ? "selected='selected'" : ""?>
+                                                            value="Fluent">Fluent
+                                                        </option>
                                                     </select>
                                                 </div>
 
@@ -483,36 +494,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         <option value="zimbabwean">Zimbabwean</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="english">English</label>
-
-                                                    <!-- <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="english" value="Poor"
-                                                    <?=$userDetail['english'] == "Poor" ? "checked" : ""?>>
-                                                <label class="form-check-label" for="exampleRadios1">
-                                                    Poor
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="english" value="Poor"
-                                                    <?=$userDetail['english'] == "Good" ? "checked" : ""?>>
-                                                <label class="form-check-label" for="exampleRadios1">
-                                                    Good
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="english" value="Poor"
-                                                    <?=$userDetail['english'] == "Fluent" ? "checked" : ""?>>
-                                                <label class="form-check-label" for="exampleRadios1">
-                                                    Fluent
-                                                </label>
-                                            </div> -->
-                                                    <input id="ex13" type="text" data-slider-ticks="[1,2,3]"
-                                                        name="english"
-                                                        data-slider-ticks-labels='["Poor", "Good", "Fluent"]'
-                                                        data-slider-tooltip="hide" value='["Poor", "Good", "Fluent"]' />
-                                                </div>
+                                               
                                             </div>
 
                                             <div class="form-submit">
