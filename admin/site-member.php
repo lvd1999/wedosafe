@@ -17,25 +17,33 @@ $site = getSiteByCode($_GET['site_code']);
 </head>
 
 <body>
-    <h1><?php echo $site['code'];?></h1>
-    <h3>Address: <?php echo $site['address'];?></h3>
+    <h1><?php echo $site['code']; ?></h1>
+    <h3>Address: <?php echo $site['address']; ?></h3>
 
+    <?php
+if (empty($members)) {
+    echo 'No members on the site.';
+} else {
+    echo '
     <table>
         <tr>
             <th>Name</th>
             <th>Occupation</th>
             <th></th>
-        </tr>
-        <?php
-    foreach($members as $member) {
-        echo '<tr><td>' . 
-         $member['firstname'] . ' ' . $member['surname'] . '</td>' . 
-         '<td>' . $member['occupation'] . '</td>' .
-         '<td><a href="view-profile.php?email=' . $member['email'] . '"<button>View</button></td>' . 
-         '</tr>';
+        </tr>';
+
+    foreach ($members as $member) {
+        echo '<tr><td>' .
+            $member['firstname'] . ' ' . $member['surname'] . '</td>' .
+            '<td>' . $member['occupation'] . '</td>' .
+            '<td><a href="view-profile.php?email=' . $member['email'] . '"<button>View</button></td>' .
+            '</tr>';
     }
-    ?>
-    </table>
+
+    '</table>';
+
+}
+?>
 </body>
 
 </html>
