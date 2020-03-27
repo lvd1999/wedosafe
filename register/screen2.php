@@ -125,23 +125,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="limiter">
         <div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
-            <div class="wrap-login100" style="width: fit-content; height:fit-content;">
+            <div class="wrap-login104">
                 <form class="login100-form validate-form form-horizontal"
                     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
                     enctype="multipart/form-data">
                     <span class="login100-form-logo float-right">
-
                         <img src="../images/blank-avatar.jpg" onClick='triggerClick()' id='profileDisplay'>
                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage"
                             class="form-control d-none">
-
-
-
                     </span>
                     <!-- fistname form -->
                     <div class="validate-input form-group row">
-                        <label for="input100" class="col-sm-4 col-form-label"
-                            style="color:aliceblue">First_Name:</label>
+                        <label for="input100" class="col-sm-4 col-form-label">First_Name:</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="input100" placeholder="FirstName"
                                 value="<?php echo $firstname; ?>">
@@ -149,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <!-- surname form -->
                     <div class="validate-input form-group row">
-                        <label for="input100" class="col-sm-4 col-form-label" style="color:aliceblue">Surname:</label>
+                        <label for="input100" class="col-sm-4 col-form-label">Surname:</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="input100" placeholder="Surname"
                                 value="<?php echo $surname; ?>">
@@ -158,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- email form -->
                     <div class="validate-input form-group row">
-                        <label for="input100" class="col-sm-4 col-form-label" style="color:aliceblue">Email:</label>
+                        <label for="input100" class="col-sm-4 col-form-label">Email:</label>
                         <div class="col-sm-8">
                             <input type="email" class="form-control" id="input100" placeholder="Email"
                                 value="<?php echo $email; ?>">
@@ -170,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-sm-6">
                             <div class="validate-input form-group">
                                 <label for="input100" class="col-sm-4 col-lg-4 control-label"
-                                    style="color:aliceblue; margin-left:-15px;">Phone:</label>
+                                    style="margin-left:-15px;">Phone:</label>
                                 <input type="text" class="form-control col-sm-8" id="input100" placeholder="Phone"
                                     value="<?php echo $phone; ?>">
                             </div>
@@ -182,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="validate-input form-group">
                                 <!-- Date input -->
                                 <label class="control-label col-sm-8" for="date"
-                                    style="color:aliceblue; margin-left:-15px;">Date Of Birth:</label>
+                                    style="margin-left:-15px;">Date Of Birth:</label>
                                 <input class="form-control col-sm-8" id="date" name="date" placeholder="MM/DD/YYY"
                                     type="text" />
                             </div>
@@ -195,8 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         id="gender">
                         <div class="form-inline form-group">
                             <div class=" col-sm-2 col-lg-2">
-                                <label for="input100" class="col-sm-4 col-form-label"
-                                    style="color:aliceblue;">Gender:</label>
+                                <label for="input100" class="col-sm-4 col-form-label">Gender:</label>
                             </div>
                             <div class="col-sm-4 col-lg-5">
                                 <div class="form-check form-inline">
@@ -217,8 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- </fieldset> -->
                     <!-- occupation selection -->
                     <div class="form-group row validate-input">
-                        <label class="control-label col-sm-4" for="date"
-                            style="color:rgb(255, 255, 255)">Occupation:</label>
+                        <label class="control-label col-sm-4" for="date">Occupation:</label>
                         <div class="col-sm-10" style="margin-top: 2%;">
                             <select id="input100" class="form-control" data-size="1" name="occupation">
                                 <option value="" selected style="margin-top: -5px;">Choose Occupation</option>
@@ -247,8 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <!-- position selected -->
                     <div class="form-group row validate-input">
-                        <label class="control-label col-sm-4" for="date"
-                            style="color:rgb(255, 255, 255)">Position:</label>
+                        <label class="control-label col-sm-4" for="date">Position:</label>
                         <div class="col-sm-10" style="margin-top: 2%;">
                             <select id="input100" class="form-control" data-size="1" name="position">
                                 <option selected style="margin-top: -4px;">Choose Position</option>
@@ -262,8 +254,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- nationality selected -->
                     <div class="form-group row validate-input">
-                        <label class="control-label col-sm-4" for="date"
-                            style="color:rgb(255, 255, 255)">Nationality:</label>
+                        <label class="control-label col-sm-4" for="date">Nationality:</label>
                         <div class="col-sm-10" style="margin-top: 2%;">
                             <select id="input100" class="form-control" data-size="1" name="nationality">
                                 <option selected style="margin-top: -4px;">Choose Nationality</option>
@@ -468,8 +459,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         id="english">
                         <div class="form-inline form-group">
                             <div class=" col-sm-2 col-lg-2">
-                                <label for="input100" class="col-sm-4 col-form-label"
-                                    style="color:aliceblue">English:</label>
+                                <label for="input100" class="col-sm-4 col-form-label">English:</label>
                             </div>
                             <div class="col-sm-5 col-lg-3">
                                 <div class="form-check form-inline">
@@ -497,20 +487,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="container-login100-form-btn">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-6">
-                                <button class="login100-form-btn" style="width: 60%; height: 90%;">
-                                    <a href="screen1.php">
-                                        Back
-                                    </a>
-                                </button>
-                            </div>
-                            <div class="col-sm-4 col-lg-6">
-                                <button class="login100-form-btn" style="width: 60%; height: 90%;" type="submit">
-                                    
-                                        Next
-                                    
-                                </button>
-                            </div>
+                            <button class="login100-form-btn">
+                                <a href="screen1.php" style="color:black;">
+                                    Back
+                                </a>
+                            </button>
+                            <button class="login100-form-btn" type="submit">
+                                    Next
+                            </button>
                         </div>
 
                     </div>

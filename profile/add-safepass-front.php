@@ -71,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 <div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-			<div class="wrap-login100"  style="width: fit-content; height: fit-content;">
+		<div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
+			<div class="wrap-login105"  style="width: fit-content; height: fit-content;">
 				<form class="login100-form validate-form" style="width: fit-content; height: fit-content;"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 					<span class="login100-form-title p-b-34 p-t-27">
 						Add SafePass Front
@@ -96,15 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                    
                     </div>
-                    
-                   
 
                     <div class="container-login100-form-btn col">
                         <div class="row">
                             <div class="col-sm-4 col-lg-6">
                                 <button class="login100-form-btn">
-                                    <a href="profile.php">
-                                        Skip
+                                    <a href="profile.php" style="color:black;">
+                                        Cancel
                                     </a>
                                 </button>
                             </div>

@@ -6,6 +6,63 @@ require_once '../functions.php';
 $_SESSION["loggedin"] = true;
 $email = $_SESSION['email'];
 $certs = get_cert($email);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //for image
+    $safepassImageName = time() . '-' . $_FILES['safepass']['name'];
+    $target_dir = "../certificates/";
+    $target_file = $target_dir . basename($safepassImageName);
+
+    // validate image size. Size is calculated in Bytes
+    if ($_FILES['safepass']['size'] > 200000) {
+        $msg = "Image size should not be greated than 200Kb";
+    }
+    // check if file exists
+    if (file_exists($target_file)) {
+        $msg = "File already exists";
+    }
+
+    //validate user input registration number & cert type
+    if ($_POST['cert-type'] == 'default') {
+        $msg = "Please select certification type";
+    } else {
+        $cert = $_POST['cert-type'];
+    }
+
+    // if(empty($_POST['reg_num'])) {
+    //     $reg_num = '';
+    // } else {
+    //     $reg_num = $_POST['reg_num'];
+    // }
+    $reg_num = $_POST['reg_num'];
+
+    if (empty($msg)) {
+        $sql = "INSERT INTO certificates (email, type, cert_image_front, reg_number) VALUES ('$email', '$cert', :safepass_front, :reg_num)";
+
+        if ($stmt = $pdo->prepare($sql)) {
+            $stmt->bindParam(":safepass_front", $param_safepass_front, PDO::PARAM_STR);
+            // $stmt->bindParam(":safepass_back", $param_safepass_back, PDO::PARAM_STR);
+            $stmt->bindParam(":reg_num", $param_reg_num, PDO::PARAM_STR);
+
+            //set parameters
+            $param_safepass_front = $safepassImageName;
+            // $param_safepass_back = $_SESSION['safepass-back'];
+            $param_reg_num = $reg_num;
+
+            move_uploaded_file($_FILES["safepass"]["tmp_name"], $target_file);
+            // Attempt to execute the prepared statement
+            if ($stmt->execute()) {
+                // Redirect to profile page
+                header("location: edit-certificates.php");
+            } else {
+                echo "Something went wrong. Please try again later.";
+            }
+        }
+        // Close statement
+        unset($stmt);
+    }
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +92,8 @@ $certs = get_cert($email);
 <body>
 
     <div class="limiter">
-        <div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
-            <div class="wrap-login100" style="width: 600px; height: fit-content;">
+        <div class="container-login100" style="background-image: url('../images/bg-02.jpg');">
+            <div class="wrap-login104" style="width: 600px; height: fit-content;">
                 <form class="login100-form validate-form" id="form" action="add-certificate.php" method="post"
                     enctype="multipart/form-data">
                     <span class="login100-form-title p-b-34 p-t-27">
@@ -47,14 +104,13 @@ $certs = get_cert($email);
 if (isset($_SESSION['safepass'])) {
     echo '<li class="list-group-item d-flex justify-content-between align-items-center">
         <button type="button" class="btn btn-lg btn-warning btn-block"
-                style="width: 180%;">Safe Pass</button>
-        <span class="badge badge-success badge-pill">✔</span>
+                style="width: 200px;">Safe Pass</button>
+                <span class="badge badge-success badge-pill">✔</span>  
     </li>';
 } else {
     echo '<li class="list-group-item d-flex justify-content-between align-items-center">
-    <a href="#"><button type="button" class="btn btn-lg btn-warning btn-block"
-            data-toggle="collapse" data-target="#multiCollapse1" aria-expanded="false"
-            aria-controls="multiCollapse1" style="width: 160%;">Safe Pass</button></a>
+    <a href="safepass-front.php"><button type="button" class="btn btn-lg btn-warning btn-block"
+             style="width: 200px;">Safe Pass</button></a>
     <a href="safepass-front.php" class="btn btn-danger" >
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>
@@ -66,8 +122,8 @@ if (count($certs) > 0) {
     foreach ($certs as $cert) {
         echo '<li class="list-group-item d-flex justify-content-between align-items-center">
             <button type="button" class="btn btn-lg btn-warning btn-block"
-                    style="width: 180%;">' . $cert['type'] . '</button>
-            <span class="badge badge-success badge-pill">✔</span>
+                    style="width: 200px;">' . $cert['type'] . '</button>
+                    <span class="badge badge-success badge-pill">✔</span>
         </li>';
     }
 }
@@ -75,112 +131,32 @@ if (count($certs) > 0) {
 ?>
                         <!-- static add other button -->
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="#"><button type="button" class="btn btn-lg btn-info btn-block"
-                                    data-toggle="collapse" data-target="#multiCollapse1" aria-expanded="false"
-                                    aria-controls="multiCollapse1" style="width: 160%;">Add Others</button></a>
-                            <a href="#" class="btn btn-danger" data-toggle="collapse" data-target="#multiCollapse1"
+                            <a href="add-other.php"><button type="button" class="btn btn-lg btn-info btn-block"
+                                     style="width: 200px;">Add Others</button></a>
+                            <a href="add-other.php" class="btn btn-danger" data-toggle="collapse" data-target="#multiCollapse1"
                                 aria-expanded="false" aria-controls="multiCollapse1">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </a>
                         </li>
 
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="collapse multi-collapse" id="multiCollapse1">
-                                    <div class="card card-body">
-                                        <div id="example-async">
-                                            <!-- First Step -->
-                                            <h3>
-                                                Step 1
-                                            </h3>
-                                            <section style="height: 300px;">
-                                                <h2>Step 1 : Choose type of Certication</h2>
-                                                <div class="form-group md-form">
-                                                    <select id="input100" class="form-control" data-size="1"
-                                                        name="cert-type">
-                                                        <option selected>Type:</option>
-                                                        <option>CSSR PASS</option>
-                                                        <option>SKILLED OPERATOR CERT</option>
-                                                        <option>MACHINE OPERATOR CERT</option>
-                                                        <option>FIRST AID CERT</option>
-                                                        <option>MANUAL HANDLING TRAINING</option>
-                                                        <option>MEWP OPERATOR</option>
-                                                        <option>FIRST AID COURSE</option>
-                                                        <option>OTHER</option>
-                                                    </select>
-                                                </div>
-                                            </section>
-
-                                            <!-- Second Step -->
-                                            <h3>
-                                                Step 2
-                                            </h3>
-                                            <section style="height: 450px;">
-                                                <h2>Step 2 : Upload Certication document</h2>
-                                                <div class="form-group" style="width: 95%; display: inline-flex;">
-                                                    <script class="jsbin"
-                                                        src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
-                                                    </script>
-                                                    <div class="file-upload">
-                                                        <div class="image-upload-wrap">
-                                                            <input class="file-upload-input" type='file'
-                                                                onchange="readURL(this);" accept="image/*"
-                                                                name="safepass" />
-                                                            <div class="drag-text">
-                                                                <h2>Drag and drop a file or select add Image</h2>
-                                                            </div>
-                                                        </div>
-                                                        <div class="file-upload-content">
-                                                            <img class="file-upload-image" src="#" alt="your image" />
-                                                            <div class="image-title-wrap">
-                                                                <button type="button" onclick="removeUpload()"
-                                                                    class="remove-image">Remove <span
-                                                                        class="image-title">Uploaded
-                                                                        Image</span></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
-
-                                            <!-- Third Step -->
-
-                                            <h3>
-                                                Step 3
-                                            </h3>
-                                            <section style="height: 200px;">
-                                                <h2>Step 3 : Enter register Number</h2>
-                                                <div class="form-group">
-                                                    <input type="text" name="reg_num" id="registerNumber"
-                                                        placeholder="registerNumber if required" />
-                                                </div>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </ul>
 
-                    <hr>
+                    <hr style="border: 1px solid black;">
 
                     <div class="container-login100-form-btn col">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-6">
-                                <button class="login100-form-btn">
-                                    <a href="screen2.php">
-                                        Back
-                                    </a>
-                                </button>
-                            </div>
-                            <div class="col-sm-4 col-lg-6">
-                                <button class="login100-form-btn">
-                                    <a href="../profile/profile.php">
-                                        Finish
-                                    </a>
-                                </button>
-                            </div>
+                            <button class="login100-form-btn">
+                                <a href="screen2.php" style="color:black;">
+                                    Back
+                                </a>
+                            </button>
+                            <button class="login100-form-btn">
+                                <a href="../profile/profile.php" style="color:black;">
+                                    Finish
+                                </a>
+                            </button>
                         </div>
                     </div>
 

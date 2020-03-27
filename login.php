@@ -121,10 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-			<div class="wrap-login100">
+			<div class="wrap-login104">
 				<form class="login100-form validate-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
+					<span class="login100-form-logo1">
+						<img src="images/logo.png" alt="" id="profileDisplay1">
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="contact100-form-checkbox">
 						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 						<label class="label-checkbox100" for="ckb1">
-							Remember me for 24 hour
+							Remember me
 						</label>
 					</div>
 

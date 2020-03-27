@@ -183,8 +183,7 @@ h2 {
 
 
 .main {
-  padding: 0px 0;
-  width: 600px; }
+  padding: 0px 0; }
 
 .container {
   position: relative;
@@ -198,7 +197,6 @@ h2 {
     font-weight: 500;
     font-family: 'Poppins';
     margin: 0px;
-    width: 600px;
  }
 
 input, textarea {
@@ -435,10 +433,3 @@ section.current {
     padding: 0 10px; } }
 
 /*# sourceMappingURL=style.css.map */
-
-
-.btn-success {
-
-  width: 300px;
-
-}

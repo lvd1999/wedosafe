@@ -4,7 +4,7 @@ require_once '../functions.php';
 require_once '../config.php';
 
 //variables
-$company_name = get_company($_SESSION['username']);
+$company_name = $_SESSION['admin']['company_name'];
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $code = $_POST['code'];

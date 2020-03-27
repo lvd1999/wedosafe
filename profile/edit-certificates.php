@@ -27,29 +27,24 @@ $certs = get_cert($email);
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="../vendor/acc-wizard-master/release/acc-wizard.min.js"></script>
     
-    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/main.css">
 
     <!--============================================================================= ==================-->
 
 </head>
 
 <body>
+<div class="limiter">
     <div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
-        <div class="main">
-            <div class="wrap-login100">
-                <div class="container" id="display">
-                    <div class="acc-wizard">
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default active">
-                                <div id="collapseOne" class="panel-collapse collapse in">
-                                    <div class="panel-body">
-                                        <form method="POST" id="myeditable">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <h3>Certication</h3>
-                                                    <label for="cert" class="form-label"
-                                                        style="width: fit-content;">Safe
-                                                        Pass</label>
+        <div class="wrap-login105">
+            <form class="login100-form form-horizontal">
+                <div class="container-login100-form-btn1">
+                            <span class="login100-form-title1">Certification</span>
+                </div>
+                <hr>
+                <fieldset>
+                    <div class="form-group row">
+                        <label for="cert" class="form-label" >Safe Pass</label>
                                                     <?php
 if (empty($safepass)) {
     echo '<a href="add-safepass-front.php" class="btn btn-warning a-btn-slide-text">
@@ -57,7 +52,7 @@ if (empty($safepass)) {
                                             <span><strong>Add</strong></span>
                                         </a>';
 } else {
-    echo '<img src="../certificates/' . $safepass['cert_image_front'] . '" alt="" id="certImg">
+    echo '<img src="../certificates/' . $safepass['cert_image_front'] . '" alt="" id="certImg2"><img src="../certificates/' . $safepass['cert_image_back'] . '" alt="" id="certImg2">
 
                                             <div id="delete">
                                                 <a href="delete-cert.php?name=' . $safepass['cert_image_front'] . '" class="btn btn-danger a-btn-slide-text">
@@ -95,9 +90,11 @@ if (empty($safepass)) {
                                             </fieldset>
 
                                             <fieldset>
-
-                                                <h3>Other</h3>
-
+                                            <div class="form-group row">
+                                            <div class="container-login100-form-btn1">
+                                                <span class="login100-form-title1">Other</span>
+                                            </div>
+                                            <hr>
                                                 <?php
                                             if (count($certs) > 0) {
                                                 foreach ($certs as $cert) {
@@ -125,20 +122,14 @@ if (empty($safepass)) {
                                                         <span><strong>Add</strong></span>
                                                     </a>
                                                 </div>
-
+                                            </div>
                                             </fieldset>
-                                            <a href="profile.php"><button type="button" class="btn btn-success"
-                                                    style="float: right;">Done</button></a>
+                                            <button type="button" class="btn btn-success"
+                                                    style="float: right;"><a href="profile.php">Done</a></button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div id="dropDownSelect1"></div>
 

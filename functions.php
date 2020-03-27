@@ -9,15 +9,14 @@ function get_details($email)
     return $row;
 }
 
-function get_company($username)
+function adminDetails($username)
 {
     global $pdo;
-    $stm = $pdo->prepare("SELECT company_name FROM admins WHERE username = ?");
+    $stm = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
     $stm->bindValue(1, $username);
     $stm->execute();
     $row = $stm->fetch(PDO::FETCH_ASSOC);
-    $result = $row['company_name'];
-    return $result;
+    return $row;
 }
 
 function get_safepass($email)
@@ -128,5 +127,14 @@ function getSiteByCode($code) {
     $stm->bindValue(1, $code);
     $stm->execute();
     $row = $stm->fetch(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function get_pdf($admin_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT * FROM pdf WHERE admin_id = ?");
+    $stm->bindValue(1, $admin_id);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
     return $row;
 }
