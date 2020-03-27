@@ -36,11 +36,14 @@ $registeredSites = registeredSites($email);
     <p>
         <a href="profile/profile.php" class="btn btn-success">Profile</a>
         <a href="request.php" class="btn btn-info">Enter site code</a>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        
         <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
     </p>
 
     <h2>Your registered sites</h2>
+        <?php
+       if (count($registeredSites) > 0) {
+           echo '
     <table class="table">
         <thead>
         <tr>
@@ -49,9 +52,7 @@ $registeredSites = registeredSites($email);
             <th scope="col">Status</th>
         </tr>
         </thead>
-       <tbody>
-        <?php
-if (count($registeredSites) > 0) {
+       <tbody>'; 
     foreach ($registeredSites as $registeredSite) {
         echo "<tr scope='row'><td>" . $registeredSite['code'] . "</td>" .            
             "<td>" . $registeredSite['address'] . "</td>" . 
@@ -59,7 +60,7 @@ if (count($registeredSites) > 0) {
             "</tr>";
     }
 } else {
-    echo "No registered site.";
+    echo "No registered site. Register one <a href='request.php'>here</a>";
 }
 ?>
     </tbody>

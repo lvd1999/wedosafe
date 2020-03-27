@@ -31,7 +31,7 @@ if ($userDetail['profile_image']) {
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="../vendor/acc-wizard-master/release/acc-wizard.min.js"></script>
 
-    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <!--============================================================================= ==================-->
@@ -39,183 +39,155 @@ if ($userDetail['profile_image']) {
 </head>
 
 <body onload="javascipt:calc()">
+ <div class="limiter">
     <div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
-        <div class="main">
-            <div class="wrap-login100">
-                <div class="container" id="display">
-                    <button class="au-btn btn btn-warning btn-sm"><a href="../welcome.php">Back</a></button>
-                    <span class="login100-form-logo float-right">
-                        <div class="box1">
-                            <img src="<?php echo "../profile-images/" . $userDetail['profile_image']; ?> "
-                                id="profileDisplay">
-                        </div>
-                    </span>
-                    <div class="acc-wizard">
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default active">
-                                <div class="panel-heading" id="headingOne">
-                                    <h3>
-                                        <a href="edit-profile.php"><button type="button"
-                                                class="btn btn-lg btn-warning btn-block"
-                                                style="width: 180px; margin-left: 650px;">Edit Profile</button></a>
-                                        <a href="#collapseOne" data-toggle="collapse" data-parent="#accordion">Basic
-                                            infomation</a>
-
-                                    </h3>
-                                </div>
-
-                                <div id="collapseOne" class="panel-collapse collapse in">
-                                    <div class="panel-body">
-                                        <form method="POST" id="myeditable">
-                                            <fieldset>
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <span>First Name : </span>
-                                                        <?php echo $userDetail['firstname']; ?>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <span>Surname : </span>
-                                                        <?php echo $userDetail['surname']; ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <span>Email : </span>
-                                                        <?php echo $userDetail['email']; ?>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <span>Phone: </span>
-                                                        <?php echo $userDetail['phone']; ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <div class="form-date">
-                                                            <label for="birth_date" class="form-label">Date of birth
-                                                                :</label>
-                                                            <div class="form-date-item">
-                                                                <?php echo $userDetail['dob']; ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="form-radio">
-                                                            <label for="gender">Gender: </label>
-                                                            <div class="form-flex">
-                                                                <?php
-echo $userDetail['sex'];
-?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label for="options" class="form-label">Occupation :</label>
-                                                        <?php echo $userDetail['occupation']; ?>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="options" class="form-label">Position :</label>
-                                                        <?php echo $userDetail['position']; ?>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label for="country" class="form-label">Nationality :</label>
-                                                        <?php echo $userDetail['nationality']; ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label for="english" class="form-label">English :</label>
-                                                        <?php echo $userDetail['english']; ?>
-                                                    </div>
-                                                </div>
-
-                                            </fieldset>
-
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <h3>Certication</h3>
-                                                    <a href="edit-certificates.php"><button type="button"
-                                                            class="btn btn-lg btn-warning btn-block"
-                                                            style="width: 180px; margin-left: 650px;">Edit
-                                                            Cert</button></a>
-
-
-
-                                                    <label for="cert" class="form-label">Safe Pass</label>
-                                                    <?php
-if (empty($safepass)) {
-    echo "<h5>No Safe Pass</h5> <br>";
-} else {
-    //get date
-    $expDate = substr($safepass['reg_number'], -4);
-    $expMonth = substr($expDate, 0, 2);
-    $expYear = '20' . (substr($expDate, 2, 4));
-
-    echo '<img src="../certificates/' . $safepass['cert_image_front'] . '">' .
-
-        '<div class="form-row">
-
-                        <div class="form-group col-md-6">
-                          <input type="text" class="form-control" id="added_date" name="added_date" readonly
-                            style="display: none;" />
-                        </div>
-
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label>Expired Date</label>
-                          <input type="date" class="form-control" id="end_date" name="end_date" value="' . $expYear . '-' . $expMonth . '-01" readonly/>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label>Warranty</label>
-                          <input type="text" class="form-control" id="calc" name="calc" value="" readonly />
-                        </div>
-                      </div>
-                            ';}?>
-                                                </div>
-                                            </fieldset>
-
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <h3>Other</h3>
-                                                    <?php
-if (count($certs) > 0) {
-    foreach ($certs as $cert) {
-        echo
-            '<div class="form-group col-lg-6 col-sm-10">
-                        <label for="cert" class="form-label">' . $cert['type'] . '</label>
-                        <img src="../certificates/' . $cert['cert_image_front'] . '" alt="" id="certImg">
-                      </div>';
-    }
-} else {
-    echo 'No other certificates';
-}
-?>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="wrap-login105"> 
+            <form class="login100-form form-horizontal">
+            <button class="btn btn-warning btn-sm"><a href="../welcome.php">Back</a></button>
+            <span class="login100-form-logo">
+                    <img src="<?php echo "../profile-images/" . $userDetail['profile_image']; ?> "
+                        id="profileDisplay">
+            </span>
+            
+            <div class="container-login100-form-btn1">
+                <span class="login100-form-title1 p-b-34">Basic infomation</span>
+                <div class="buttonposition"> 
+                    <button type="button" class="btn btn-warning"> <a href="edit-profile.php">Edit Profile</a></button>
                 </div>
             </div>
+            <hr>
+            <fieldset>
+            <div class="form-group row">
+            <span><strong> First_Name:</strong></span> &nbsp;
+            <?php echo $userDetail['firstname']; ?>
+            </div>
+
+            <div class="form-group row">
+                <span><strong>Surname : </strong></span> &nbsp;
+                <?php echo $userDetail['surname']; ?>
+            </div>
+
+            <div class="form-group row">
+                <span><strong>Email : </strong></span> &nbsp;
+                <?php echo $userDetail['email']; ?>
+            </div>
+
+            <div class="form-group row">
+                <span><strong>Phone: </strong></span> &nbsp;
+                <?php echo $userDetail['phone']; ?>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-date">
+                    <span><strong>Date of birth:</strong></span> &nbsp;
+                        <?php echo $userDetail['dob']; ?>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-radio">
+                    <span><strong>Gender: </strong></span> &nbsp;
+                        <?php
+if ($userDetail['sex'] == 'male') {
+echo '<span for="male" style="background:transparent;"><img
+src="../images/icons/icon-male.png" alt="Male"></span>';
+} elseif ($userDetail['sex'] == 'female') {
+echo '<span for="female" style="background:transparent;"><img
+src="../images/icons/icon-female.png" alt="Female"></span>';
+}
+?>                  
+                      
+                </div>
+            </div>
+              
+            <div class="form-group row">
+                <span><strong>Occupation :</strong></span> &nbsp;
+                <?php echo $userDetail['occupation']; ?>
+            </div>
+
+            <div class="form-group row">
+                <span><strong>Position :</strong></span> &nbsp;
+                <?php echo $userDetail['position']; ?>
+            </div>
+              
+            <div class="form-group row">
+                <span><strong>Nationality :</strong></span> &nbsp;
+                <?php echo $userDetail['nationality']; ?>
+            </div>
+
+            </fieldset>
+            <hr>
+            <fieldset>
+                <div class="form-group row">
+                    <div class="container-login100-form-btn1">
+                        <span class="login100-form-title1 p-b-34">Certification</span>
+                        <div class="buttonposition"> 
+                            <button type="button" class="btn btn-warning"> <a href="edit-certificates.php">Edit Cert</a></button>
+                        </div>
+                    </div>
+
+                    <label for="cert" class="form-label">Safe Pass</label>
+                    <?php
+if (empty($safepass)) {
+echo "<h5>No Safe Pass</h5> <br>";
+} else {
+//get date
+$expDate = substr($safepass['reg_number'], -4);
+$expMonth = substr($expDate, 0, 2);
+$expYear = '20' . (substr($expDate, 2, 4));
+
+echo '<img id="certImg" src="../certificates/' . $safepass['cert_image_front'] . '">' .
+
+'<div class="form-group row">
+
+<div class="form-group col-md-5">
+<input type="text" class="form-control" id="added_date" name="added_date" readonly
+style="display: none;" />
+</div>
+
+</div>
+<div class="form-group row">
+<div class="form-group col-md-5">
+<label style="margin-left:4%;">Expired Date</label>
+<input type="date" style="margin-left:4%; width:90%;" class="form-control" id="end_date" name="end_date" value="' . $expYear . '-' . $expMonth . '-01" readonly/>
+</div>
+<div class="form-group col-md-5">
+<label style="margin-left:4%;">Warranty</label>
+<input type="text"  style="margin-left:4%; width:90%;" class="form-control" id="calc" name="calc" value="" readonly />
+</div>
+</div>
+';}?>
+                </div>
+            </fieldset>
+            <hr>
+            <fieldset>
+                <div class="form-group row">
+                <div class="container-login100-form-btn1">
+                    <span class="login100-form-title1 p-b-34">Other</span>
+                </div>
+                    <?php
+if (count($certs) > 0) {
+foreach ($certs as $cert) {
+echo
+'<div class="form-group col-lg-6 col-sm-10">
+<label for="cert" class="form-label">' . $cert['type'] . '</label>
+<img src="../certificates/' . $cert['cert_image_front'] . '" alt="" id="certImg">
+</div>';
+}
+} else {
+echo 'No other certificates';
+}
+?>
+</div>
+</fieldset>
+        </form>
         </div>
     </div>
+</div>
+    
 
-    <div id="dropDownSelect1"></div>
+
+<div id="dropDownSelect1"></div>
 
 
 </body>

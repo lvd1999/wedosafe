@@ -120,10 +120,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
-			<div class="wrap-login100">
+			<div class="wrap-login104">
 				<form class="login100-form validate-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
-					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
+				<span class="login100-form-logo1">
+						<img src="../images/logo.png" alt="" id="profileDisplay1">
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
@@ -159,11 +159,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<input class="input100" type="password" name="confirm_password" placeholder="RepeatPassword">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
-
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
 							Next
 						</button>
+					</div>
+
+					<div class="text-right p-t-50">
+						<a class="txt1" href="../login.php">
+							Already a member! Login here
+						</a>
 					</div>
 				</form>
 			</div>

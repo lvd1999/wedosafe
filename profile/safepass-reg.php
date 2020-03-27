@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $msg = "File already exists";
     }
     // Upload image only if no errors
-    if (empty($error)) {
+    if (empty($msg)) {
         move_uploaded_file($_FILES["safepass"]["tmp_name"], $target_file);
     }
 
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             // Redirect to screen 3
             $_SESSION['safepass'] = $_POST['number'];
-            header("location: profile.php");
+            header("location: edit-certificates.php");
         } else {
             echo "Something went wrong. Please try again later.";
         }

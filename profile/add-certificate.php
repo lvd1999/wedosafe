@@ -2,8 +2,9 @@
 session_start();
 require_once "../config.php";
 $email = $_SESSION['email'];
-$reg_err = '';
-$cert = $reg_num = '';
+
+$cert = $reg_num = $msg = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //for image
     $safepassImageName = time() . '-' . $_FILES['safepass']['name'];
@@ -13,44 +14,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate image size. Size is calculated in Bytes
     if ($_FILES['safepass']['size'] > 200000) {
         $msg = "Image size should not be greated than 200Kb";
-        $msg_class = "alert-danger";
     }
     // check if file exists
     if (file_exists($target_file)) {
         $msg = "File already exists";
-        $msg_class = "alert-danger";
-    }
-    // Upload image only if no errors
-    if (empty($error)) {
-        move_uploaded_file($_FILES["safepass"]["tmp_name"], $target_file);
     }
 
     //validate user input registration number & cert type
     if ($_POST['cert-type'] == 'default') {
-        $reg_err = "Please select certification type";
+        $msg = "Please select certification type";
     } else {
         $cert = $_POST['cert-type'];
     }
-    if (empty(trim($_POST["reg_num"]))) {
-        $reg_err = "Please Enter Registration Number";
-    } else {
-        $reg_num = trim($_POST["reg_num"]);
-    }
 
-    // $sql = "INSERT INTO certificates (email, type, cert_image_front, cert_image_back, reg_number) VALUES ('$email', 'safepass', :safepass_front, :safepass_back, :reg_num)";
-    $sql = "INSERT INTO certificates (email, type, cert_image_front, reg_number) VALUES ('$email', '$cert', :safepass_front, :reg_num)";
+    // if(empty($_POST['reg_num'])) {
+    //     $reg_num = '';
+    // } else {
+    //     $reg_num = $_POST['reg_num'];
+    // }
+    $reg_num = $_POST['reg_num'];
 
-    if ($stmt = $pdo->prepare($sql)) {
-        $stmt->bindParam(":safepass_front", $param_safepass_front, PDO::PARAM_STR);
-        // $stmt->bindParam(":safepass_back", $param_safepass_back, PDO::PARAM_STR);
-        $stmt->bindParam(":reg_num", $param_reg_num, PDO::PARAM_STR);
+    if (empty($msg)) {
+        $sql = "INSERT INTO certificates (email, type, cert_image_front, reg_number) VALUES ('$email', '$cert', :safepass_front, :reg_num)";
 
-        //set parameters
-        $param_safepass_front = $safepassImageName;
-        // $param_safepass_back = $_SESSION['safepass-back'];
-        $param_reg_num = $reg_num;
+        if ($stmt = $pdo->prepare($sql)) {
+            $stmt->bindParam(":safepass_front", $param_safepass_front, PDO::PARAM_STR);
+            // $stmt->bindParam(":safepass_back", $param_safepass_back, PDO::PARAM_STR);
+            $stmt->bindParam(":reg_num", $param_reg_num, PDO::PARAM_STR);
 
-        if (empty($reg_err)) {
+            //set parameters
+            $param_safepass_front = $safepassImageName;
+            // $param_safepass_back = $_SESSION['safepass-back'];
+            $param_reg_num = $reg_num;
+
+            move_uploaded_file($_FILES["safepass"]["tmp_name"], $target_file);
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
                 // Redirect to profile page
@@ -74,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <title>Safe Pass upload - Front</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
@@ -84,13 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../css/util.css">
@@ -101,8 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 <div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-			<div class="wrap-login100"  style="width: fit-content; height: fit-content;">
+		<div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
+			<div class="wrap-login105"  style="width: fit-content; height: fit-content;">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 					<span class="login100-form-title p-b-34 p-t-27">
 						Add other certificate
@@ -117,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
     </div>
 
-                    <div class="form-group"> 
+                    <div class="form-group">
                         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
                         <div class="file-upload">
 
@@ -134,43 +131,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                         </div>
-                   
+
                     </div>
-                    
-                    <hr>
+
+                    <hr style="border: 1px solid black;">
 
                     <div class="wrap-input100 validate-input" data-validate = "Registration Number">
 						<input class="input100" type="number" name="reg_num" placeholder="Registration Number">
 						<span class="focus-input100" data-placeholder="&#xf188;"></span>
+                        <p class="text-danger"><?php echo $msg; ?></p>
                     </div>
-                    
-                    <hr>
+
+                    <hr style="border: 1px solid black;">
 
                     <div class="container-login100-form-btn col">
                         <div class="row">
                             <div class="col-sm-4 col-lg-6">
                                 <button class="login100-form-btn">
-                                    <a href="profile.php">
+                                    <a href="profile.php" style="color: black;">
                                         Skip
                                     </a>
                                 </button>
                             </div>
                             <div class="col-sm-4 col-lg-6">
                                 <button class="login100-form-btn" type="submit">
-                                       Done                                
+                                       Done
                                 </button>
                             </div>
                         </div>
-                        
+
                     </div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div id="dropDownSelect1"></div>
-	
+
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
