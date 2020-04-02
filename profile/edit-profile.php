@@ -5,9 +5,10 @@ require_once '../config.php';
 
 //variables
 $email = $_SESSION['email'];
-$userDetail = get_details($email);
+$userDetail = userDetails($email);
 $safepass = get_safepass($email);
 
+$msg = '';
 //user submit update form
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //profile image
@@ -22,17 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // validate image size. Size is calculated in Bytes
         if ($_FILES['profileImage']['size'] > 200000) {
             $msg = "Image size should not be greated than 200Kb";
-            $msg_class = "alert-danger";
         }
 // check if file exists
         if (file_exists($target_file)) {
             $msg = "File already exists";
-            $msg_class = "alert-danger";
         }
 // Upload image only if no errors
-        if (empty($error)) {
-            move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file);
-        }
+        
     }
     // for rest of details
     $firstname = $_POST['firstname'];
@@ -45,18 +42,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nationality = ucwords($_POST['nationality']);
     $english = $_POST['english'];
 
-    // Prepare an insert statement
-    $sql = "UPDATE users SET firstname=?, surname=?, phone=?, dob=?, sex=?, occupation=?, position=?, nationality=?, english=?, profile_image=? WHERE email='$email'";
-    $stmt = $pdo->prepare($sql);
-
-    // Attempt to execute the prepared statement
-    if ($stmt->execute([$firstname, $surname, $phone, $dob, $sex, $occupation, $position, $nationality, $english, $profileImageName])) {
-        // Redirect to profile page
-        header("location: profile.php");
-    } else {
-        echo "Something went wrong. Please try again later.";
+    if (empty($msg)) {
+        move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file);
+        // Prepare an insert statement
+        $sql = "UPDATE users SET firstname=?, surname=?, phone=?, dob=?, sex=?, occupation=?, position=?, nationality=?, english=?, profile_image=? WHERE email='$email'";
+        $stmt = $pdo->prepare($sql);
+        
+        // Attempt to execute the prepared statement
+        if ($stmt->execute([$firstname, $surname, $phone, $dob, $sex, $occupation, $position, $nationality, $english, $profileImageName])) {
+            // Redirect to profile page
+            header("location: profile.php");
+        } else {
+            echo "Something went wrong. Please try again later.";
+        }
     }
-
+        
     // Close statement
     unset($stmt);
 }
@@ -103,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 onClick='triggerClick()' id='profileDisplay'>
                         </span>
                         <button type="button" class="btn btn-primary" style="margin-top:1%;"> <a class="info" onClick="triggerClick()">Change Avatar</a></button>
+                        <p><?php echo $msg;?></p>
                     </div>
                    
                     <div class="container-login100-form-btn1">

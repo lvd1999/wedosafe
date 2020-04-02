@@ -85,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input class="file-upload-input"  name="safepass" type='file' onchange="readURL(this);" accept="image/*"/>
                             <div class="drag-text">
                             <h3>Drag and drop a file or select add Image</h3>
+                            <p><?php echo $msg;?></p>
                             </div>
                         </div>
                         <div class="file-upload-content">
