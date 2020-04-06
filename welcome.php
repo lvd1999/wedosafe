@@ -1,5 +1,5 @@
 <?php
-// Initialize the session
+
 session_start();
 require_once 'functions.php';
 require_once 'config.php';
@@ -9,9 +9,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
-
+$_SESSION['user'] = userDetails($_SESSION['email']);
 $email = $_SESSION['email'];
 $registeredSites = registeredSites($email);
+$documents = getDocuments($_SESSION['user']['id']);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +21,7 @@ $registeredSites = registeredSites($email);
 <head>
     <meta charset="UTF-8">
     <title>User Homepage</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity=   q"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style type="text/css">
         body {
             font: 14px sans-serif;
@@ -66,9 +67,16 @@ $registeredSites = registeredSites($email);
     </tbody>
     </table>
 
+<h3>Unread Documents</h3>
+    <?php
+        foreach($documents as $document) {
+            echo '<a href="user/show-pdf.php?id='.$document['pdf_id'].'">'.$document['title'] . '<br>';
+        } 
+    ?>
+
 </body>
 
 
-<!-- <embed src="dummy.pdf" width="500" height="375"> -->
+
 
 </html>
