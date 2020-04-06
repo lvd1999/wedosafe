@@ -1,5 +1,5 @@
 <?php
-function get_details($email)
+function userDetails($email)
 {
     global $pdo;
     $stm = $pdo->prepare("SELECT * FROM users WHERE email = ?");
@@ -104,7 +104,7 @@ function displayRegisteredSites($email) {
 
 function siteMembers($id) {
     global $pdo;
-    $stm = $pdo->prepare("SELECT u.email, u.firstname, u.surname, u.occupation FROM (site_registration sr INNER JOIN users u ON sr.email = u.email) WHERE sr.building_site = ?");
+    $stm = $pdo->prepare("SELECT u.id,u.email, u.firstname, u.surname, u.occupation FROM (site_registration sr INNER JOIN users u ON sr.email = u.email) WHERE sr.building_site = ?");
     $stm->bindValue(1, $id);
     $stm->execute();
     $row = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -130,11 +130,40 @@ function getSiteByCode($code) {
     return $row;
 }
 
-function get_pdf($admin_id) {
+function pdfByAdmin($admin_id) {
     global $pdo;
     $stm = $pdo->prepare("SELECT * FROM pdf WHERE admin_id = ?");
     $stm->bindValue(1, $admin_id);
     $stm->execute();
     $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function getSitesByAdmin($admin_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT * FROM building_sites bs INNER JOIN admins a ON a.company_name = bs.company_name WHERE a.company_name = ?");
+    $stm->bindValue(1, $admin_id);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function getDocuments($user_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT p.title, pdfs.pdf_id FROM pdf p INNER JOIN pdf_status pdfs 
+    ON p.id=pdfs.pdf_id 
+    WHERE pdfs.user_id = ? AND pdfs.status='unread'  ");
+    $stm->bindValue(1, $user_id);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function getPDFById($pdf_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT * FROM pdf WHERE id = ?");
+    $stm->bindValue(1, $pdf_id);
+    $stm->execute();
+    $row = $stm->fetch(PDO::FETCH_ASSOC);
     return $row;
 }

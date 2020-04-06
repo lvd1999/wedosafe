@@ -5,7 +5,7 @@ require_once '../config.php';
 
 //get details
 $email = $_SESSION['email'];
-$userDetail = get_details($email);
+$userDetail = userDetails($email);
 $safepass = get_safepass($email);
 $certs = get_cert($email);
 
