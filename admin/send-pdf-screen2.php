@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($pdfs as $pdf) {
         for ($i = 0; $i < sizeof($sending_members); $i++) {
             $sql = "INSERT INTO pdf_status (admin_id, user_id, pdf_id, status) VALUES ($admin_id, $sending_members[$i], $pdf, 'unread')";
-            echo $sql;
             if ($stmt = $pdo->prepare($sql)) {
 
                 // Attempt to execute the prepared statement
@@ -89,7 +88,7 @@ foreach ($pdfs as $pdf) {
 foreach ($sites as $site) {
     echo '<div name="'.$site['code'].'" id="'.$site['code'].'">';
     $members = siteMembers($site['id']);
-    echo '<p>' . $site['code'] . '</p>';
+    // echo '<p>' . $site['code'] . '</p>';
     echo '<table width="200" border="1" cellpadding="5">';
     echo '<tr>
             <th scope="col">
@@ -97,7 +96,7 @@ foreach ($sites as $site) {
                 onclick="if (!window.__cfRLUnblockHandlers) return false; checkAll('. '\''. $site['code']. '\''.', this.checked);"
                 data-cf-modified-8e5a1e24468b1b010e898f68-="" />
             </th>
-            <th scope="col">Site Member</th>
+            <th scope="col">'.$site['code'].'</th>
           </tr>';
         foreach ($members as $member) {
             echo '<tr>
