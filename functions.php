@@ -111,9 +111,10 @@ function siteMembers($id) {
     return $row;
 }
 
+
 function registeredSites($email) {
     global $pdo;
-    $stm = $pdo->prepare("SELECT r.code, r.status, bs.address FROM (requests r INNER JOIN building_sites bs ON r.code = bs.code) 
+    $stm = $pdo->prepare("SELECT r.code, r.status, bs.address,bs.id FROM (requests r INNER JOIN building_sites bs ON r.code = bs.code) 
     WHERE email = ? ORDER BY FIELD(status, 'allowed')");
     $stm->bindValue(1, $email);
     $stm->execute();
@@ -150,8 +151,7 @@ function getSitesByAdmin($admin_id) {
 
 function getDocuments($user_id) {
     global $pdo;
-    $stm = $pdo->prepare("SELECT p.title, pdfs.pdf_id FROM pdf p INNER JOIN pdf_status pdfs 
-    ON p.id=pdfs.pdf_id 
+    $stm = $pdo->prepare("SELECT p.title, pdfs.pdf_id,p.admin_id, a.company_name FROM ((pdf p INNER JOIN pdf_status pdfs ON p.id=pdfs.pdf_id )INNER JOIN admins a ON a.id=p.admin_id)
     WHERE pdfs.user_id = ? AND pdfs.status='unread'  ");
     $stm->bindValue(1, $user_id);
     $stm->execute();
@@ -165,5 +165,33 @@ function getPDFById($pdf_id) {
     $stm->bindValue(1, $pdf_id);
     $stm->execute();
     $row = $stm->fetch(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function readDocuments($user_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT p.name,p.title, pdfs.pdf_id,p.admin_id, a.company_name FROM ((pdf p INNER JOIN pdf_status pdfs ON p.id=pdfs.pdf_id )INNER JOIN admins a ON a.id=p.admin_id)
+    WHERE pdfs.user_id = ? AND pdfs.status='read'  ");
+    $stm->bindValue(1, $user_id);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function getSite($site_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT * FROM site_registration WHERE id=?");
+    $stm->bindValue(1, $site_id);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $row;
+}
+
+function getSiteDocuments($building_site_id) {
+    global $pdo;
+    $stm = $pdo->prepare("SELECT * FROM pdf_site ps INNER JOIN pdf p ON ps.pdf_id = p.id WHERE ps.building_site_id=?");
+    $stm->bindValue(1, $building_site_id);
+    $stm->execute();
+    $row = $stm->fetchAll(PDO::FETCH_ASSOC);
     return $row;
 }

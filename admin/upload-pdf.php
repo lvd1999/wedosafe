@@ -3,8 +3,8 @@ session_start();
 require_once "../config.php";
 require_once '../functions.php';
 
+$company_name = $_SESSION['admin']['company_name'];
 $admin_id = $_SESSION['admin']['id'];
-
 
 $reg_err = '';
 $cert = $reg_num = '';
@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $title = $_POST['title'];
     }
+
 
     
     $sql = "INSERT INTO pdf (name, title, admin_id) VALUES (:pdf, '$title', $admin_id)";
@@ -135,6 +136,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input class="input100" type="text" name="title" placeholder="Title">
                         <span class="focus-input100" data-placeholder="&#xf188;"></span>
                     </div>
+
+                   
 
                     <hr>
 

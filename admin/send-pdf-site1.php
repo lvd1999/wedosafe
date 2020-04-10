@@ -5,8 +5,9 @@ require_once '../config.php';
 $pdfs = pdfByAdmin($_SESSION['admin']['id']);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+
     $_SESSION['selected-pdfs'] = $_POST['pdf'];
-    header("Location: send-pdf-screen2.php");
+    header("Location: send-pdf-site2.php");
 }
 ?>
 

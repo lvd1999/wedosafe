@@ -17,9 +17,11 @@ $pdfs = pdfByAdmin($_SESSION['admin']['id']);
 
 <body>
     <a href="admin-dashboard.php"><button>Dashboard</button></a>
-    <a href="upload-pdf.php"><button>Upload PDF</button></a>
-    <a href="send-pdf-screen1.php"><button>Send..</button></a> <br>
+    <a href="upload-pdf.php"><button>Upload PDF</button></a> 
+    <a href="send-pdf-screen1.php"><button>Send to member</button></a> 
+    <a href="send-pdf-site1.php"><button>Send to site</button></a> <br>
 
+    <h1>Your PDFs</h1>
     <?php 
         foreach($pdfs as $pdf) {
             echo '<embed src="../pdf/' . $pdf['name'] . '" />';

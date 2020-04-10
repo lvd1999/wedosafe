@@ -4,6 +4,8 @@ session_start();
 require_once '../functions.php';
 require_once '../config.php';
 
+
+$pdfs = getSiteDocuments($_GET['site_id']);
 $members = siteMembers($_GET['site_id']);
 $site = getSiteByCode($_GET['site_code']);
 ?>
@@ -24,7 +26,7 @@ $site = getSiteByCode($_GET['site_code']);
 if (empty($members)) {
     echo 'No members on the site.';
 } else {
-    echo '
+    echo '<h1>Members</h1>
     <table>
         <tr>
             <th>Name</th>
@@ -43,6 +45,16 @@ if (empty($members)) {
     '</table>';
 
 }
+?>
+
+
+<!-- PDFS ACCOCIATED WITH SITE -->
+<?php 
+    foreach($pdfs as $pdf) {
+        echo '<embed src="../pdf/' . $pdf['name'] . '" />';
+        echo $pdf['title'] . '<br>';
+        // echo $pdf['title'];
+    }
 ?>
 </body>
 

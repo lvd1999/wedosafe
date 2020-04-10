@@ -1,0 +1,131 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Untitled Document</title>
+  <style type="text/css">
+    table {
+      border-collapse: collapse;
+      border: 1px solid #999
+    }
+
+    th {
+      background: #ccc;
+      text-align: left;
+    }
+  </style>
+  <script type="8e5a1e24468b1b010e898f68-text/javascript">
+    function checkAll(frm, checkedOn) {
+
+      // have we been passed an ID
+      if (typeof frm == "string") {
+        frm = document.getElementById(frm);
+      }
+
+      // Get all of the inputs that are in this form
+      var inputs = frm.getElementsByTagName("input");
+
+      // for each input in the form, check if it is a checkbox
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].type == "checkbox") {
+          inputs[i].checked = checkedOn;
+        }
+      }
+    }
+  </script>
+</head>
+
+
+<body>
+  <h1>Javascript Check/uncheck all checkboxes</h1>
+  <p>This example shows how you can use JavaScript to select all checkboxes in a table - similar to Hotmail.</p>
+  <hr />
+  <!-- This form must have the ID that you will use later. 
+	 In this case it is 'test_form' -->
+  <form action="#" method="get" name="test_form" id="test_form">
+    <p>Your messages:</p>
+    <table width="200" border="1" cellpadding="5">
+      <tr>
+        <th scope="col">
+          <input type="checkbox" name="all" id="all"
+            onclick="if (!window.__cfRLUnblockHandlers) return false; checkAll('test_form', this.checked);"
+            data-cf-modified-8e5a1e24468b1b010e898f68-="" />
+        </th>
+        <th scope="col">From</th>
+        <th scope="col">Message</th>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="asp" id="asp" /></td>
+        <td>Dave</td>
+        <td>Hi, Stewart!</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="php" id="php" /></td>
+        <td>Claire</td>
+        <td>Don't forget</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="jsp" id="jsp" /></td>
+        <td>Ryan</td>
+        <td>Pictures</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="js" id="js" /></td>
+        <td>Thomas</td>
+        <td>Let's meet up</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="as" id="as" /></td>
+        <td>Bob</td>
+        <td>Whatever</td>
+      </tr>
+    </table>
+  </form>
+
+  <!-- second -->
+  <form action="#" method="get" name="test_form" id="test_form2">
+    <p>Your messages:</p>
+    <table width="200" border="1" cellpadding="5">
+      <tr>
+        <th scope="col">
+          <input type="checkbox" name="all" id="all"
+            onclick="if (!window.__cfRLUnblockHandlers) return false; checkAll('test_form2', this.checked);"
+            data-cf-modified-8e5a1e24468b1b010e898f68-="" />
+        </th>
+        <th scope="col">From</th>
+        <th scope="col">Message</th>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="asp" id="asp" /></td>
+        <td>Dave</td>
+        <td>Hi, Stewart!</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="php" id="php" /></td>
+        <td>Claire</td>
+        <td>Don't forget</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="jsp" id="jsp" /></td>
+        <td>Ryan</td>
+        <td>Pictures</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="js" id="js" /></td>
+        <td>Thomas</td>
+        <td>Let's meet up</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="as" id="as" /></td>
+        <td>Bob</td>
+        <td>Whatever</td>
+      </tr>
+    </table>
+  </form>
+  <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js"
+    data-cf-settings="8e5a1e24468b1b010e898f68-|49" defer=""></script>
+</body>
+
+</html>

@@ -22,7 +22,7 @@ if (!isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"] !== true) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
@@ -44,7 +44,7 @@ if (!isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"] !== true) {
     </p>
 
 
-    <h2>My building sites</h2>
+    <h2>Your building sites</h2>
     <a href='add-sites.php' class="btn btn-info">Add</a> <br>
 
     <table class="table">
