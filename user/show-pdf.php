@@ -16,8 +16,7 @@ $user_id = $_SESSION['user']['id'];
     <title>Read PDF</title>
 </head>
 <body>
-<h1><?php echo $pdf_id;?></h1>
-<h1><?php echo $user_id;?></h1>
+<h1><?php echo $pdf['title'];?></h1>
 <div class="embed-responsive embed-responsive-16by9">
 <?php
 echo '<embed src="../pdf/' . $pdf['name'] . '" width="400px" height="400px" />'
