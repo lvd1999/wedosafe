@@ -10,9 +10,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 $_SESSION['user'] = userDetails($_SESSION['email']);
-$email = $_SESSION['email'];
-$registeredSites = registeredSites($email);
+$registeredSites = registeredSites($_SESSION['email']);
 $documents = getDocuments($_SESSION['user']['id']);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,28 +37,38 @@ $documents = getDocuments($_SESSION['user']['id']);
     <p>
         <a href="profile/profile.php" class="btn btn-success">Profile</a>
         <a href="request.php" class="btn btn-info">Enter site code</a>
-        
+        <a href="pdf-history.php" class="btn btn-warning">PDF History</a>
         <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
     </p>
 
     <h2>Your registered sites</h2>
         <?php
-       if (count($registeredSites) > 0) {
-           echo '
+if (count($registeredSites) > 0) {
+    echo '
     <table class="table">
         <thead>
         <tr>
             <th scope="col">Site Code</th>
             <th scope="col">Address</th>
             <th scope="col">Status</th>
+            <th scope="col">Documents</th>
         </tr>
         </thead>
-       <tbody>'; 
+       <tbody>';
     foreach ($registeredSites as $registeredSite) {
-        echo "<tr scope='row'><td>" . $registeredSite['code'] . "</td>" .            
-            "<td>" . $registeredSite['address'] . "</td>" . 
-            '<td>' . $registeredSite['status'] . '</td>' . 
-            "</tr>";
+        $site_id = getSite($registeredSite['id']);
+
+        //if status allowed, put link, else, just code name
+        if ($registeredSite['status'] == "allowed") {
+            echo "<tr scope='row'><td>" . '<a href="user/show-pdf-site.php?siteid=' . $registeredSite['id'] . '&site_code=' . $registeredSite['code'] . '">' . $registeredSite['code'] . "</a></td>";
+        } else {
+            echo "<tr scope='row'><td>" . $registeredSite['code'] . "</td>";
+        }
+        echo "<td>" . $registeredSite['address'] . "</td>" .
+        '<td>' . $registeredSite['status'] . '</td>' .
+        //if all documents read in the site - tick, else - cross
+
+        "</tr>";
     }
 } else {
     echo "No registered site. Register one <a href='request.php'>here</a>";
@@ -67,12 +77,12 @@ $documents = getDocuments($_SESSION['user']['id']);
     </tbody>
     </table>
 
-<h3>Unread Documents</h3>
+<h3>Urgent</h3>
     <?php
-        foreach($documents as $document) {
-            echo '<a href="user/show-pdf.php?id='.$document['pdf_id'].'">'.$document['title'] . '<br>';
-        } 
-    ?>
+foreach ($documents as $document) {
+    echo '<a href="user/show-pdf.php?id=' . $document['pdf_id'] . '">' . $document['title'] . '</a>(' . $document['company_name'] . ')<br>';
+}
+?>
 
 </body>
 
